@@ -1,0 +1,1197 @@
+if (cond) comando
+
+if (x>45)
+    y = x*4;    
+
+if (x==0)
+    y = x*4;
+else
+    y = x*3;
+
+Comandos cíclicos:
+
+        while (cond) comando
+
+        for (inicio;cond;inc) comando
+
+        é o mesmo que:
+
+        ini;
+        while (cond){
+            comando;
+            inc;
+        }
+
+Definição e uso de funções:
+
+
+int main(){
+    int n = 5, i;
+
+    for (i=0;i<n;i++)
+        putchar('@');
+    
+    return 0;
+}
+
+O for é igual a isto:
+
+    i = 0;
+    while(i<n){
+        putchar('@');
+        i++;
+    }
+
+Voltando ao main com o for:
+
+   void replicate(int n, char c){
+        if (n>0){
+            replicate(n-1,c);
+        }
+        for (;n>0;n--)
+            putchar(c);
+    }
+
+    int main(){
+        int n = 5;
+        replicate(3,'@');
+        return 0;
+}
+
+
+---------------------------------------------
+
+Aula T4 (2 Março)
+
+Definição de funções
+Localidade de variáveis
+
+int maximo(int x, int y){
+    int r;
+
+    if (x>y)
+        r = x;
+    else
+        r = y;
+    return r;
+}
+
+int main(){
+    int x = 3,
+        y = 6,
+        z;
+
+    z = maximo(x,y);
+    
+    printf("%d\n",z);
+    return 0;
+}
+
+
+void maxMin(int *x, int *y){
+    int t;
+    if (x<y){
+    t = *x;
+    *x = *y;
+    *y = t;
+    }
+}
+
+int main(){
+    int x = 3,
+        y = 6,
+        z;
+
+    maxMin(&x,&y);
+
+    
+    printf("%d %d\n",x,y);
+    return 0;
+}
+
+
+-------------------------------------------------
+
+Aula T- 4 de Março
+
+void copiaArray(int destino[10], int origem[10],int tamanho){
+    int i;
+    for(i=0;i<tamanho;i++)
+        destino[i] = origem[i];
+}
+
+
+int main(){
+
+    int x;
+    int y[10] = {1,2,3,4,5,6,7,8,9,10},b[10];
+
+    //em C, um array é o endereço da sua primeira componente
+
+    copiaArray(b,y,10);
+    return 0;
+}
+
+----------------------------------------------------
+
+Aula T6 (9 de Março)
+
+NOTA:
+        int x  // na maioria das vezes inteiro em 4 bytes
+            // -2^31 .. 2^31
+
+        unsigned int x // 0 .. 2^31-1
+
+        long int x // na maioria das vezes é um inteiro representado em 8 bytes
+
+        unsigned long int x
+
+        short int x
+
+        #define A 34
+        #define MAX(a,b) (a>b?a:b)
+
+
+int sum(int v[],int N){
+    int i,x;
+
+    for (i=x=0;i<N;i++)
+        x += v[i];
+    
+    return x;
+}
+
+int main(){
+    int a[10] = {1,2,3,4,5,6,7,8,9,0};
+
+    int s;
+
+    s = sum(a,10);
+
+    return 0;
+}
+
+--
+
+int sum(int v[],int N){
+    int i,x;
+
+    for (i=x=0;i<N;i++)
+        x += v[i];
+    
+    return x;
+}
+
+int main(){
+    int a[10] = {1,2,3,4,5,6,7,8,9,0};
+
+    int s = 45;
+
+    float f = 4.5;
+
+    s = s/2;  // divisão inteira
+    f = f/2;  // divisão de floats
+
+    int *b;
+
+    b = a + 3; ou sejaa, b é o array que começa em a[4]
+
+    s = sum(b,10);
+
+    return 0;
+}
+
+--
+
+
+int sum(int v[],int N){
+    int i,x;
+
+    for (i=x=0;i<N;i++)
+        x += v[i];
+    
+    return x;
+}
+
+int main(){
+    int a[10] = {1,2,3,4,5,6,7,8,9,0};
+
+    int s = 45;
+
+    float f = 4.5;
+
+    s = s/2;  // divisão inteira
+    f = f/2;  // divisão de floats
+
+    int *b;
+    long int *c;
+
+    b = a;
+    b = a + 3; ou sejaa, b é o array que começa em a[4]
+
+    c = a;
+    c = c + 3;
+
+    s = sum(b,10);
+
+    return 0;
+}
+
+--------------------------------------------
+
+Aula T7 (11/03/2021)
+
+strings em c são um caso especial de arrays de caracteres
+
+caracter especial (codigo ascii é 0) '\0'
+
+comprimento(char s[]){
+    int i;
+    
+    for (i=0;s[i]!='\0';i++);
+
+    return i;
+}
+
+int main(){
+    char s[20] = "ola mundo cruel";
+    printf("%d",comprimento(s));
+    return 0;
+}
+
+OU
+
+comprimento(char s[]){
+    int i;
+    
+    for (i=0;*s!='\0';i++)
+        s++;
+
+    return i;
+}
+
+int main(){
+    char s[20] = "ola mundo cruel";
+    printf("%d",comprimento(s));
+    return 0;
+}
+
+--
+
+//string concatena(char s1[],char s2[])
+char *concatena(char *s1,char *s2){
+    //strcat
+    int l1 = strlen(s1), l2 = strlen(s2);
+    int i,j;
+
+    for (j=0;j<l2;j++)
+        s1[l1+j] = s2[j];
+
+    s1[i+j] = '\0';
+
+    return s1;
+}
+
+int main(){
+    char a[20] = "ola mu", b[20] = "ndo cruel",*c;
+    
+    c = concatena (a,b);
+
+    return 0;
+}
+
+---------------------------------------------
+
+Aula T8 (16 Março)
+
+int procura(int x, int v[], int N){
+    //retorna o indice onde x ocorre em v
+    //se nao existir, retorna -1
+
+    int i;
+
+    while (i<N && v[i]!=x)
+        i++;
+    
+    if (i!=N)
+        return i;
+    else
+        return (-1);
+}
+
+// procura em arrays ordenados (por ordem crescente)
+
+int procura(int x, int v[], int N){
+    //v está ordenado
+    int i;
+
+    while (i<N && v[i]<x)
+        i++;
+
+    if (i<N && v[i] == x)
+        return i;
+    else
+        return (-1)
+}
+
+----
+
+int procuraB (int x, int v[], int N){
+    //v esta ordenado
+    return (procuraEntre (x, v, N, 0, N-1));
+}
+
+int procuraEntre (int x, int v[], int N, int inf, int sup){
+    //procura x em v entre os indices inf e sup
+    int meio,r;
+    if (inf > sup) r = (-1);
+    else{
+    meio = (inf + sup)/2;
+
+    if (v[meio] == x) r = meio;
+    else if (v[meio] > x) r = (procuraEntre (x,v,N,inf,meio-1));
+    else r = (procuraEntre(x,v,N,meio+1,sup));
+    }
+    return r;
+}
+
+-----
+
+//Refazendo mas sem funçao auxiliar
+
+int procuraB (int x, int v[], int N){
+    int r;
+
+    if (N == 0) r = -1;
+    else{
+        meio = N/2;
+        if (v[meio] == x) r=meio;
+        else if (v[meio]> x) r = procuraB(x,v,meio);
+        else r = meio + 1 + procuraB(x,v+meio+1,N-meio-1)
+    }
+    return r;
+}
+
+proximos episodios: ordenar arrays
+
+---------------------------------------------------------------------
+
+Aula T8 (18 de Março de 2021)
+
+void ordenaR (int v[], int N){
+    int m,i;
+    if (N > 1){
+        //descobrir o indice do menor elemento do array
+        m=0;
+        for (i=1;i<N;i++)
+            if (v[i]<v[m])  m=i;
+        swap(v,0,m);
+        ordenaR (v+1,N-1);
+   }
+}
+
+void minSort (int v[], int N){
+    int m,i,j;
+
+    for(j=0;j<N-1;j++){
+        // descobrir o menor elemento desde j até N
+        m=j;
+        for(i=j+1;i<N;i++)
+            if (v[i]<v[m])  m=i;
+        swap(v,j,i);
+    }
+}
+
+void selSort (int v[], int N){
+    int i,j;
+
+    for(j=0;j<N-1;j++)
+        for (i=j+1;i<N;i++)
+            if (v[i]<v[j])  swap(v,i,j);
+}
+
+void bubble (v[], int N){
+    int i;
+
+    for (i=0;i<N-1;i++)
+        if(v[i]>v[i+1]) swap(v,i,i+1);
+}
+
+void bubbleSort (int v[], int N){
+    int i;
+    for(i=0;i<N;i++)
+        bubble(v,N);
+}
+
+
+------------------------------------------------------------------------
+
+Aula T9(23.Mar)
+
+int bubble (v[], int N){
+    int i;
+    int r=1;
+
+    for (i=0;i<N-1;i++)
+        if(v[i]>v[i+1]){ swap(v,i,i+1);r=0;}
+
+    return r;
+}
+
+void bubblesort(int v[], int N){
+    int i;
+    int ord=0;
+
+    for(i=0;i<N-1 && !ord;i++)
+        ord = bubble(v,N);
+}
+
+-----------------------
+
+int bubble2 (v[], int N){
+    int i;
+    int r=0;
+
+    for (i=0;i<N-1;i++)
+        if(v[i]>v[i+1]){
+            swap(v,i,i+1);
+            r=i;
+    }
+
+    return r;
+}
+
+-------------------------------------
+
+void insere(int v[],int N, int x){
+    //v[0...N[ está ordenado
+    //inserir o x
+    //no final v[0...N+1[ está ordenado
+    //0  1  2  3  4  5  6  N=7
+    //2  4  6  10 15 24 35 8
+    //x=8
+    
+    int j;
+    for(j=N-1;j>=0 && v[j]>x;j--)
+        v[j+1] = v[j];
+    v[j+1] = x;
+}
+
+
+void insSort (int v[], int N){
+    int i;
+    // no array v, nos indices [0...i[ está ordenado
+    i=1;
+    while (i<N){
+        //insere (v,i,v[i]);
+        i++;
+    }
+}
+
+-----------------------------------
+
+divisão e conquista
+
+Merge - sort 
+
+void merge(int a[], int na, int b[], int nb, int r[]);
+
+//Funde dois arrays ordenados num só
+
+void mergeSort(int v[], int N){
+    int m;
+    int aux [N];
+    if (N>1){
+        m = N/2;
+        //1ª metade v[0...m[ que tem m elementos
+        //2ª metade v[m...N[ que tem N-m elementos
+        mergeSort(v,m);
+        mergeSort(v+m,N-m);
+        merge(v,m,v+m,N-m,aux);
+        //fica para a próxima aula
+    }
+}
+
+----------------------------------------------------------------
+
+Aula T10 (25.Mar)
+
+void mergeSort(int v[], int N){
+    int m;
+    int aux [N];
+    if (N>1){
+        m = N/2;
+        //1ª metade v[0...m[ que tem m elementos
+        //2ª metade v[m...N[ que tem N-m elementos
+        mergeSort(v,m);
+        mergeSort(v+m,N-m);
+        merge(v,m,v+m,N-m,aux);
+        for(i=0;i<N;i++)  v[i] = aux[i];
+    }
+}
+
+Quick-sort
+
+Escolher um elemento - x - do array (pivot)
+reorganizar o array de forma a que
+    -- começam por aparecer todos os elementos menores ou iguais a x
+    -- de seguida aparecem os restantes elementos (maiores do que x)
+
+int partition (int v[], int N){
+    // usa como pivot v[N-1]
+
+  //no inicio _  _  _  _  _  ...  _  _  _  x
+
+  //         r           i
+  // <=  <=  >  >  >  >  ?  ?  ...  ?  ?  x  
+
+  //no final  <=x  <=x  <=x  <=x  x  >x  >x  >x  >x
+
+    int r,i;
+
+    r = i = 0;
+
+    for(r=i=0;i<N-1;i++)
+        if (v[i]<=v[N-1])  swap(v,r++,i);
+
+    swap(v,r,N-1);
+    return r;
+}
+
+void qSort(int v[], int N){
+    int p;
+    if (N>1){
+        p = partition(v,N);
+        qSort(v,p);
+        qSort(v+p+1,N-p-1);
+    }
+}
+
+----------------------
+
+Definição de tuplos em C
+
+int x;
+
+int y [10];
+
+y[2] = 42;
+
+---------------------------
+
+struct s{
+    int sp;
+    int valores [Max];
+};
+
+struct s a, b[40];
+
+
+a.sp=5;  //a componente sp de a passa a ser 5
+a.valores[3] = 42;
+b[2].sp=3;
+b[3].valores[5] = 44;
+
+----proxima aula: passagem de structs como argumentos
+
+-----------------------------------------------------------
+
+Aula T11- 13.abril
+
+struct s{
+    int sp;
+    int valores [Max];
+};
+
+int x[10], y[10];
+struct s a,b;
+
+Diferenças entre struct e arrays:
+    Atribuição:
+        x = y está errado
+        a = b está correto
+
+    Passagem como argumento:
+        int f(int v[],int N);
+
+        int main(){
+            int x[400];
+            f(x,400);
+                1: Não é feita uma cópia do array
+                2: Quaisquer alterações feitas no array pela função alteram o array chamador
+        }
+
+        int g(struct s a)
+
+        int main(){
+            struct s xxx;
+            g(xxx);
+                1: É feita uma cópia do argumento (struct) (computacionalmente relevante)
+                2: Quaisquer alterações feitas à struct pela função não são visíveis do exterior
+        }
+
+    Returns:
+        Faz sentido dar return a uma struct;
+        Não faz sentido dar return a um array;
+
+-------Exemplo: Stack de inteiros------
+
+Push: Acrescentar um elemento
+Pop: Retirar um elemento
+Top: Qual o próximo elemento a ser retirado
+empty: Saber se a stack está vazia
+
+int A;          A é uma variável do tipo int
+typedef int B;  B é um tipo equivalente a int
+B x;            x é uma variável do tipo B=int
+
+----Exemplo de implementação de stack de inteiros----
+typedef struct stack{
+    int valores[100];
+    int quantos;
+}STACK;
+
+//os valores sao inseridos da esquerda para a direita
+
+STACK push (int x, STACK s){
+    s.valores[s.quantos++] = x;
+    return s;
+}
+
+STACK pop(STACK s){
+    s.quantos--;
+    return s;
+}
+
+int top (STACK s){
+    return (s.valores[s.quantos-1]);
+}
+
+int empty (STACK s){
+    return (s.quantos ==0);
+}
+
+int main(){
+    STACK s1;
+    int aaa;
+    s1.quantos = 0;
+    s1 = push(3,s1);
+    aaa = top(s1);
+    return 0;
+}
+
+------------------------------------------------------------------------
+
+Aula 15.Abril 2021
+
+//existe uma abreviatura para (*a).b
+//a é um endereço de uma struct que tem um campo b
+//em vez de escrever (*a).b é costume escrever a->b
+
+#include <stdlib.h>
+
+
+typedef struct stack{
+    int N;
+    int *valores; //valores é um array de tamanho N
+    int quantos;
+}STACK,*SStack;
+
+//define dois tipos
+//STACK que é o mesmo que struct stack
+//SStack que é um endereço de STACK
+
+void initStack (SStack s,int tamanho){
+    s->valores = (int *) malloc(tamanho * sizeof(int));
+    s->N = tamanho;
+}
+
+void push (int x, SStack s){
+    s->valores[s->quantos++] = x;
+}
+
+void pop(SStack s){
+    s->quantos--;
+}
+
+int top (SStack s){
+    return (s->valores[s->quantos-1]);
+}
+
+int empty (SStack s){
+    return (s->quantos ==0);
+}
+
+int main(){
+    STACK s1;
+    int aaa;
+    initStack (&s1,10);
+    s1.quantos = 0;
+    push(3,&s1);
+    aaa = top(&s1);
+    free(s1.valores);
+    return 0;
+}
+
+---------------------------------------------------
+
+Aula T13 (20.Abril)
+
+Memória não automática (heap)
+
+malloc (para reservar memória)
+
+int main(){
+    int *x,z[10];
+
+    x = malloc(10*sizeof (int));
+    x = 42;
+
+    return 0;
+}
+
+listas em C:
+Inspirar no tipo do Haskell
+[Int] = [] | Int : [Int]
+
+Requisitos : como representar a lista vazia?
+             como representar listas não vazias?
+
+
+existe um endereço especial para identificar listas vazias
+NULL
+
+typedef struct lista {
+    int valor;
+    struct lista* prox;
+}*lista;
+
+Lista newlista (int x, lista l){
+    lista r = NULL;
+    r = malloc(sizeof(struct lista));
+    r->valor = x;
+    r->prox = l;
+    return r;
+}
+
+Lista fromArray(int v[], int N){
+    //constroi uma lista com os n elementos de v
+    Lista r;
+    int i;
+
+    for(i=0;i<N;i++)
+        newLista(v[i],r);
+    return r;
+}
+
+
+int main(){
+    lista x,y,z;
+
+    //x= []
+    x = NULL;
+
+    //y = [42]
+    y = malloc(sizeof (struct lista));
+    y->valor = 42;
+    y->prox = NULL;
+
+    // z = [1,2,3]
+    z = NULL;
+    z = newlista(3,z);
+    z = newlista(2,z);
+    z = newlista(1,z);
+    // z = newlista(1,newlista(2,newlista(3,NULL)));
+    return 0;
+}
+
+----------------------------------------
+
+typedef struct lista {
+    int valor;
+    struct lista* prox;
+}*lista;
+
+Lista fromArray(int v[], int N){
+    //constroi uma lista com os n elementos de v
+    Lista r = NULL;
+    int i;
+
+    for(i=N-1;i>=0;i--)
+        newLista(v[i],r);
+    return r;
+}
+
+Lista fromArrayV2(int v[], int N){
+    //constroi uma lista com os n elementos de v
+    Lista r = NULL;
+    if (N>0){
+        r = newLista(v[0],fromArray(v+1,N-1));
+    }
+    return r;
+}
+
+Lista cloneL (Lista l){
+    Lista r,cauda;
+
+    if (l==NULL) r = NULL;
+    else{
+        cauda = cloneL(l->prox);
+        r = newLista(l->valor,cauda);
+    }
+
+    return r;
+}
+
+int main(){
+    Lista x,y;
+    int a [5] = {1,22,33,44,55};
+
+    x = fromarray(a,5);
+    y = cloneL(x);
+    return 0;
+}
+
+----------------------------------------------------------------------------
+
+Aula 27 de Abril
+
+Lista cloneL (Lista l) {
+    Lista r, ult,nova;
+
+    if (l==Null)    r = NULL;
+
+    else{
+        r = malloc(sizeof(struct lista));
+        r->valor = l->valor;
+        ult = r;
+        l = l->prox;
+
+        while(l!=NULL){
+            nova = malloc(sizeof(struct lista));
+            nova -> valor = l->valor;
+            ult ->prox = nova;
+            ult = nova;
+            l = l->prox;
+
+            l = l->prox;
+    }
+    ult->prox = NULL;
+    }
+
+    return r;
+}
+
+int main(){
+    Lista x,y;
+    int a [5] = {1,22,33,44,55};
+
+    x = fromarray(a,3);
+    y = cloneL(x);
+    return 0;
+}
+
+-----------------------------
+
+Lista cloneL (Lista l) {
+    Lista r, ult,*sitio;
+
+    sitio = &r;
+
+    while(l!=NULL){
+        *sitio = malloc(sizeof(struct lista));
+        (*sitio)->valor = l->valor;
+        l = l->prox;
+        sitio = &((*sitio)->prox);
+    }
+    *sitio = NULL;
+    }
+
+    return r;
+}
+-------------------------------------------------------------------
+
+Lista insereOrd(Lista l, int x){
+    //l está ordenada
+
+    Lista nova, pt=l,ant;
+
+    //criar celula para o novo elemento
+    nova = malloc(sizeof(struct lista));
+
+    if (l == NULL || l->valor > x){
+        //inserir no inicio
+        nova->prox = l;
+        l = nova;
+    }
+    
+    else{
+
+        //percorre a lista até encontrar um elemento maior do que x
+        while(pt != NULL && pt->valor < x){
+            ant = pt;
+            pt = pt->prox;
+        }
+
+        //inserir a célula nesse sitio da lista
+
+        nova->prox = pt;
+        ant->prox = nova;
+    }
+    return l;
+
+}
+
+----------------------------
+
+Lista insereOrdV2(Lista l, int x){
+    //l está ordenada
+
+    Lista nova, *sitio;
+
+    //criar celula para o novo elemento
+    nova = malloc(sizeof(struct lista));
+    nova->valor = x;
+
+    sitio = &l;
+
+    while(*sitio != NULL && (*sitio)->valor < x)
+        sitio = &((*sitio)->prox);
+    
+    nova->prox = *sitio;
+    *sitio = nova;
+
+    
+    return l;
+
+}
+
+void insereOrdV3(Lista *l, int x){
+    //l está ordenada
+
+    Lista nova;
+
+    //criar celula para o novo elemento
+    nova = malloc(sizeof(struct lista));
+    nova->valor = x;
+
+    sitio = &l;
+
+    while(*l != NULL && (*l)->valor < x)
+        l = &((*l)->prox);
+    
+    nova->prox = *l;
+    *l = nova;
+
+    
+    return l;
+
+}
+
+Lista removeOrd (Lista l, int x){
+    Lista pt,ant;
+    //assumir que a lista está ordenada
+    //procurar x em l
+    pt = l;
+    while (pt!=NULL && pt->valor < x){
+        ant = pt;pt = pt->prox;
+    }
+
+    if (pt!= NULL && pt->valor == x){
+        //encontrado
+        if (pt !=l)    ant->prox=pt->prox;
+        else l = l->prox;
+        free(pt);
+    }
+    else{
+        //nao existe
+    }
+    return l;
+}
+
+Lista removeOrdV2 (Lista l, int x){
+    Lista pt,*sitio;
+    //assumir que a lista está ordenada
+    //procurar x em l
+    *sitio = &l;
+    while (*sitio!=NULL && (*sitio)->valor < x){
+        sitio = &((*sitio)->prox);
+    }
+
+    if (*sitio!= NULL && (*sitio)->valor == x){
+        //encontrado
+        pt = *sitio;
+        (*sitio) = (*sitio)->prox;
+        free(pt);
+    }
+    else{
+        //nao existe
+    }
+    return l;
+}
+
+int main(){
+    Lista x,y;
+    int a [5] = {1,22,33,44,55};
+
+    x = fromarray(a,3);
+    x = insereOrd(x,30);
+    return 0;
+}
+
+----------------------------------------
+
+//arvores binárias de inteiros
+
+typedef struct arvore{
+    int valor;
+    struct arvore *esq,*dir;
+} *Arv;
+
+int compLista (Lista l){
+    int r;
+    r = 0;
+    while(l!=NULL){
+        l = l->prox; r++;
+    }
+    return r;
+}
+
+int compArv (Arv a){
+    int r;
+    r = 0;
+    if (a!=NULL)
+        r = 1 + compArv(a->esq) + compArv(a->dir);
+    
+    return r;
+}
+
+Arv arvFromArray(int v[], int N){
+    Arv r = NULL;
+    int m = N/2;
+    if (N>0){
+        r = malloc(sizeof(struct arvore));
+        r->valor = v[m];
+        r->esq = arvFromArray(v,m);
+        r->dir = arvFromArray(v+m+1,N-m-1);
+    }
+    return r;
+}
+
+int travessiaParaArray(Arv a, int v[], int N){
+    // retorna o numero de elementos escritos
+    int r = 0;
+    if (a == NULL && N<=0);
+    else{
+        r += travessiaParaArray (a->esq,v+r,N-r); //in order
+        if (r<N){
+        v[r] = a->valor;
+        r++;
+        // r += travessiaParaArray (a->esq,v+r,N-r); //pre order
+        r += travessiaParaArray (a->dir,v+r,N-r);
+    }
+    }
+    return r;
+}
+
+// árvores de procura (BST : Binary Search Tree)
+
+int search (Arv a, int x){
+    // retorna verdadeiro se x existe em a
+    int r;
+    if (a == NULL)  r = 0;
+    else if (a->valor == x)  r = 1;
+    else if (a->valor > x)
+        r = search (a->esq,x);
+    else
+        r = search (a->dir,x);
+    
+    return r;
+}
+
+int searchV2 (Arv a, int x){
+    // retorna verdadeiro se x existe em a
+
+    while (a != NULL && a->valor != x)
+        if (a->valor > x)
+            a = a->esq;
+        else a = a->dir;
+    return (a!=NULL);
+}
+
+Arv insere_recursivo (Arv a, int x){
+    if (a == NULL){
+        a = malloc(sizeof(struct arvore));
+        a->valor = x;
+        a->esq = NULL;
+        a->dir = NULL;
+    }
+    else if (x < a->valor)
+        a->esq = insere (a->esq, x);
+    else
+        a->dir = insere (a->dir, x);
+
+    return a;
+}
+
+Arv insere_iterativo (Arv a, int x){
+    Arv pt = a, ant;
+
+    while (pt != NULL)
+        ant = pt;
+        if (x < pt->valor)
+            pt = pt->esq;
+        else
+            pt = pt->dir;
+    
+    pt = malloc(sizeof(struct arvore));
+    pt->valor = x;
+    pt->esq = pt->dir = NULL;
+
+    if (a != NULL)
+        if (x < ant->valor) ant->esq = pt;
+        else ant->dir = pt;
+    else a = pt;
+
+    return a;
+}
+
+Arv insere_iterativoV2 (Arv a, int x){
+Arv *sitio;
+    sitio = &a;
+    while (*sitio != NULL)
+        if (x < *sitio->valor)
+            sitio = &((*sitio)->esq);
+        else
+            sitio = &((*sitio)->dir);
+    (*sitio) = malloc(sizeof(struct arvore));
+    (*sitio)->valor = x;
+    (*sitio)->esq = (*sitio)->dir = NULL;
+
+    return a;
+}
+
+
+int main(){
+    int a[7] = {10,20,30,40,50,60,70},b[10];
+    Arv arv;
+    int x,y;
+
+    arv = arvFromArray(a,7);
+
+    arv = insere (arv,55);
+
+    y = search(arv,55);
+    x = search(arv,60);
+
+    travessiaParaArray(arv,b,4);
+    return = 0;
+}
+
+--------------------------------------------------------------
+
+
+
+
+
+

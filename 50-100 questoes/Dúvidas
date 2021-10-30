@@ -1,0 +1,2 @@
+Questão 2- Dúvidas sobre como fazer o free de uma lista ligada. Devo igualar uma nova lista aRemover a l, depois fazer l=l->prox e então fazer o free?
+

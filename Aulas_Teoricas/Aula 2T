@@ -1,0 +1,42 @@
+/*
+Tipos básicos em c:
+int
+float
+double
+char
+
+bool? não há
+convenção: 0 é falso
+         !=0 é verdadeiro
+
+Construções sintáticas.
+
+Qual é a forma de um programa?
+
+Um programa tem sempre uma função main
+
+
+int main(){
+    int x;
+    printf("%d",x);
+    return (4);
+}
+
+Existe uma convenção em C para o valor de return do main
+0 se correu tudo bem
+!=0 alguma coisa estranha se passou
+
+Atribuição:
+
+var = expressão
+significado:
+    1. calcular o valor da expressão
+    2. colocar esse valor na variável var
+
+int x, y;
+
+x = 42;
+y = x+1;
+x = y+1;
+y = x+1;
+*/
